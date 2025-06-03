@@ -4,6 +4,7 @@ using RestAPI.Models;
 using RestAPI.Validation;
 using System.Xml;
 using System.Xml.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace RestAPI.Controllers
 {
@@ -11,10 +12,10 @@ namespace RestAPI.Controllers
     [Route("api/[controller]")]
     public class FlightController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly FlightsDbContext _context;
         private readonly string _xsdPath;
         private readonly string _rngPath;
-        public FlightController(IWebHostEnvironment env, AppDbContext context)
+        public FlightController(IWebHostEnvironment env, FlightsDbContext context)
         {
             _xsdPath = Path.Combine(env.ContentRootPath, "Validation Files", "FlightXSD.xml");
             _rngPath = Path.Combine(env.ContentRootPath, "Validation Files", "FlightRNG.xml");

@@ -10,10 +10,10 @@ namespace RestAPI.Models
         public int Id { get; set; }
 
         [XmlElement("origin")]
-        public string Origin { get; set; }
+        public string Origin { get; set; } = string.Empty;
 
         [XmlElement("destination")]
-        public string Destination { get; set; }
+        public string Destination { get; set; } = string.Empty;
 
         [XmlElement("departure")]
         public DateTime Departure { get; set; }
