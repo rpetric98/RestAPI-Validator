@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<element name="flight" xmlns="http://relaxng.org/ns/structure/1.0">
+  <element name="id">
+    <text/>
+  </element>
+  <element name="origin">
+    <element name="id">
+      <text/>
+    </element>
+    <element name="name">
+      <text/>
+    </element>
+    <element name="displayCode">
+      <text/>
+    </element>
+    <element name="city">
+      <text/>
+    </element>
+  </element>
+  <element name="destination">
+    <element name="id">
+      <text/>
+    </element>
+    <element name="name">
+      <text/>
+    </element>
+    <element name="displayCode">
+      <text/>
+    </element>
+    <element name="city">
+      <text/>
+    </element>
+  </element>
+  <element name="flightNumber">
+    <text/>
+  </element>
+  <element name="departure">
+    <text/>
+  </element>
+  <element name="arrival">
+    <text/>
+  </element>
+  <element name="duration">
+    <data type="integer"/>
+  </element>
+  <element name="price">
+    <data type="decimal"/>
+  </element>
+  <element name="carrier">
+    <element name="name">
+      <text/>
+    </element>
+    <element name="displayCode">
+      <text/>
+    </element>
+    <element name="logo">
+      <text/>
+    </element>
+  </element>
+</element>
