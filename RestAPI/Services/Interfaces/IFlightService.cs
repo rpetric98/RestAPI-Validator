@@ -1,6 +1,12 @@
-﻿namespace RestAPI.Services.Interfaces
+﻿using System.ServiceModel;
+using System.Xml.Linq;
+
+namespace RestAPI.Services.Interfaces
 {
-    public class IFlightService
+    [ServiceContract]
+    public interface IFlightService
     {
+        [OperationContract]
+        Task<XElement> SearchMovies(string searchTerm);
     }
 }
