@@ -11,6 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="Commons.Xml.Relaxng">
+      <HintPath>Libs\Commons.Xml.Relaxng.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Libs\Commons.Xml.Relaxng.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
