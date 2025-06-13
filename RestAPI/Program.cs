@@ -82,7 +82,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddSoapCore();
 builder.Services.AddScoped<IFlightService, FlightService>();
-//builder.Services.AddSingleton<IWeatherService, WeatherService>()
+builder.Services.AddSingleton<IWeatherService, WeatherService>();
 
 var app = builder.Build();
 
