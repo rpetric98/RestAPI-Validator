@@ -1,0 +1,87 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="container-fluid w-50">
+    <h1>Login Form</h1>
+    <div class="row">
+        <div class="col-12">
+            <form id="loginForm" class="w-50">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input id="username" name="Username" class="form-control" required />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input id="password" name="Password" class="form-control" type="password" required />
+                </div>
+                <div class="form-group mt-4">
+                    <input type="submit" value="Login" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-7">
+            <div id="successMessage" class="alert alert-success p-4" style="display:none;"></div>
+            <div id="errorMessage" class="alert alert-danger p-4" style="display:none;"></div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        console.log('Script loaded');
+
+        if (sessionStorage.getItem('AccessToken') != null) {
+            console.log('AccessToken found in sessionStorage, redirecting to /Home/Index');
+            window.location.href = '/Home/Index';
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            console.log('Submitting login form with:', { username, password });
+
+            fetch('/Auth/Login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username, password: password })
+            })
+            .then(response => {
+                console.log('Response status:', response.status);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response data:', data);
+                if (data.token) {
+                    document.getElementById('successMessage').innerText = 'Login successful';
+                    document.getElementById('successMessage').style.display = 'block';
+                    document.getElementById('errorMessage').style.display = 'none';
+
+                    sessionStorage.setItem('AccessToken', data.token);
+                    console.log('Token stored:', data.token);
+                    window.location.href = '/Home/Index';
+                } else {
+                    document.getElementById('errorMessage').innerText = 'Login failed. Please check your credentials.';
+                    document.getElementById('errorMessage').style.display = 'block';
+                    document.getElementById('successMessage').style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+                document.getElementById('errorMessage').innerText = 'An error occurred. Please try again.';
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('successMessage').style.display = 'none';
+            });
+        });
+    </script>
+}

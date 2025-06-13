@@ -1,8 +1,24 @@
-﻿@{
+﻿@model List<string>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="text-center">Welcome to the App</h2>
+            <p class="text-center">Please <a href="/Auth/Login">Login</a> or <a href="/Auth/Register">Register</a> to view the weather</p>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script>
+        if (sessionStorage.getItem('AccessToken') == null) {
+            window.location.href = '/Auth/Login';
+        } else {
+            window.location.href = '/Home/Flights';
+        }
+    </script>
+}

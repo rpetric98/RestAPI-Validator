@@ -7,6 +7,6 @@ namespace RestAPI.Services.Interfaces
     public interface IFlightService
     {
         [OperationContract]
-        Task<XElement> SearchMovies(string searchTerm);
+        Task<XElement> SearchFlights(string searchTerm);
     }
 }
