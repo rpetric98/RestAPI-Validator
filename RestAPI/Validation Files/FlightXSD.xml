@@ -1,37 +1,30 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  
-  <xs:element name="flight">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="FlightDetails">
     <xs:complexType>
       <xs:sequence>
-        <xs:element name="id" type="xs:string"/>
-        <xs:element name="origin" type="locationType"/>
-        <xs:element name="destination" type="locationType"/>
-        <xs:element name="flightNumber" type="xs:string"/>
-        <xs:element name="departure" type="xs:dateTime"/>
-        <xs:element name="arrival" type="xs:dateTime"/>
-        <xs:element name="duration" type="xs:int"/>
-        <xs:element name="price" type="xs:decimal"/>
-        <xs:element name="carrier" type="carrierType"/>
+        <xs:element name="Legs">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Leg" maxOccurs="unbounded" minOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Origin" type="xs:string"/>
+                    <xs:element name="Destination" type="xs:string"/>
+                    <xs:element name="Date" type="xs:dateTime"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Adults" type="xs:int"/>
+        <xs:element name="Currency" type="xs:string"/>
+        <xs:element name="Locale" type="xs:string"/>
+        <xs:element name="Market" type="xs:string"/>
+        <xs:element name="CabinClass" type="xs:string"/>
+        <xs:element name="CountryCode" type="xs:string"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  
-  <xs:complexType name="locationType">
-    <xs:sequence>
-      <xs:element name="id" type="xs:string"/>
-      <xs:element name="name" type="xs:string"/>
-      <xs:element name="displayCode" type="xs:string"/>
-      <xs:element name="city" type="xs:string"/>
-    </xs:sequence>
-    </xs:complexType>
-  
-  <xs:complexType name="carrierType">
-    <xs:sequence>
-      <xs:element name="name" type="xs:string"/>
-      <xs:element name="displayCode" type="xs:string"/>
-      <xs:element name="logo" type="xs:anyURI"/>
-    </xs:sequence>
-    </xs:complexType>
-    
 </xs:schema>

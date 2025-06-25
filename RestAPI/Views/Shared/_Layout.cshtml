@@ -19,8 +19,11 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Flights</a>
+                        <li class="nav-item" id="flightsNav">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Flight" asp-action="Index">Flights</a>
+                        </li>
+                        <li class="nav-item" id="weatherNav">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Weather" asp-action="Index">Weather</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
@@ -62,10 +65,14 @@
             if (accessToken != null) {
                 var logoutButton = document.getElementById("logoutBtn");
                 logoutButton.style.display = "block";
+                document.getElementById("flightsNav").style.display = "block";
+                document.getElementById("weatherNav").style.display = "block";
             } else {
                 document.getElementById("loginBtn").style.display = "block";
                 document.getElementById("registerBtn").style.display = "block";
                 document.getElementById("logoutBtn").style.display = "none";
+                document.getElementById("flightsNav").style.display = "none";
+                document.getElementById("weatherNav").style.display = "none";
             }
         }
 

@@ -13,9 +13,9 @@ namespace RestAPI.Services
     {
         private readonly IConfiguration _configuration;
         private readonly FlightsDbContext _context;
-        private readonly PasswordHasher<User> _passwordHasher;
+        private readonly IPasswordHasher<User> _passwordHasher;
 
-        public AuthService(IConfiguration configuration, FlightsDbContext context, PasswordHasher<User> passwordHasher)
+        public AuthService(IConfiguration configuration, FlightsDbContext context, IPasswordHasher<User> passwordHasher)
         {
             _configuration = configuration;
             _context = context;
@@ -56,7 +56,7 @@ namespace RestAPI.Services
             };
             user.PasswordHash = _passwordHasher.HashPassword(user, registerModel.Password);
             _context.Users.Add(user);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
             return true;
         }
 

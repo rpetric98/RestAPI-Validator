@@ -1,0 +1,78 @@
+﻿@{
+    ViewData["Title"] = "Flight";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">FlightsApp</h2>
+
+    <div id="message" class="alert d-none mt-3"></div>
+
+    <hr />
+    <h4>Upload XML (XSD)</h4>
+    <form id="formXSD" asp-controller="Flight" asp-action="ValidateXSD" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".xml" class="form-control" required />
+        <button type="submit" class="btn btn-primary mt-2">Upload XSD</button>
+    </form>
+
+    <hr />
+    <h4>Upload XML (RNG)</h4>
+    <form id="formRNG" asp-controller="Flight" asp-action="ValidateRNG" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".xml" class="form-control" required />
+        <button type="submit" class="btn btn-primary mt-2">Upload RNG</button>
+    </form>
+
+</div>
+
+@section Scripts {
+    <script>
+        function handleFormSubmit(formId) {
+            const form = document.getElementById(formId);
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                const messageDiv = document.getElementById('message');
+                messageDiv.classList.add('d-none');
+                messageDiv.classList.remove('alert-success', 'alert-danger');
+                messageDiv.textContent = '';
+
+                const formData = new FormData(form);
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const contentType = response.headers.get('content-type') || '';
+                    let data;
+
+                    if (contentType.includes('application/json')) {
+                        data = await response.json();
+                    } else {
+                        data = await response.text();
+                    }
+
+                    if (response.ok) {
+                        messageDiv.textContent = (data.Message || "Upload successful!");
+                        messageDiv.classList.add('alert-success');
+                        messageDiv.classList.remove('d-none');
+                    } else {
+                        if (typeof data === 'object') {
+                            messageDiv.textContent = JSON.stringify(data, null, 2);
+                        } else {
+                            messageDiv.textContent = data;
+                        }
+                        messageDiv.classList.add('alert-danger');
+                        messageDiv.classList.remove('d-none');
+                    }
+                } catch (error) {
+                    messageDiv.textContent = "Network or server error: " + error.message;
+                    messageDiv.classList.add('alert-danger');
+                    messageDiv.classList.remove('d-none');
+                }
+            });
+        }
+
+        handleFormSubmit('formXSD');
+        handleFormSubmit('formRNG');
+    </script>
+}

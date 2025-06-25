@@ -1,0 +1,47 @@
+﻿@model List<string>
+
+@{
+    ViewData["Title"] = "Weather";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">Weather</h2>
+
+    <label for="citySelect">Select a City</label>
+    <select id="citySelect" name="city" class="form-control mb-2">
+        <option value="">-- Select City --</option>
+        @foreach (var city in Model)
+        {
+            <option value="@city">@city</option>
+        }
+    </select>
+
+    <div id="temperatureDisplay" class="mt-3"></div>
+</div>
+
+<script>
+    document.getElementById('citySelect').addEventListener('change', function () {
+        var city = this.value;
+        var tempDiv = document.getElementById('temperatureDisplay');
+        tempDiv.innerHTML = ''; // clear
+
+        if (!city) return;
+
+        fetch('/Weather/GetTemperature?city=' + encodeURIComponent(city))
+            .then(response => response.json())
+            .then(data => {
+                if (data.temperature !== undefined) {
+                    tempDiv.innerHTML = `<div class="alert alert-info">
+                                        <strong>Temperature in ${city}:</strong> ${data.temperature} &deg;C
+                                    </div>`;
+                } else if (data.error) {
+                    tempDiv.innerHTML = `<div class="alert alert-warning">${data.error}</div>`;
+                } else {
+                    tempDiv.innerHTML = '<div class="alert alert-warning">No temperature data found.</div>';
+                }
+            })
+            .catch(err => {
+                tempDiv.innerHTML = `<div class="alert alert-danger">Error fetching temperature: ${err}</div>`;
+            });
+    });
+</script>

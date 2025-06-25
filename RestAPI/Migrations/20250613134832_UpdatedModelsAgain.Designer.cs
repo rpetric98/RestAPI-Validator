@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RestAPI.Models;
 
@@ -11,9 +12,11 @@ using RestAPI.Models;
 namespace RestAPI.Migrations
 {
     [DbContext(typeof(FlightsDbContext))]
-    partial class FlightsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250613134832_UpdatedModelsAgain")]
+    partial class UpdatedModelsAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

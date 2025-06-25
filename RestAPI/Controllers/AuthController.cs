@@ -32,7 +32,7 @@ namespace RestAPI.Controllers
             return Ok(new { token });
         }
 
-        [HttpPost("register")]
+        [HttpGet("register")]
         public IActionResult Register()
         { 
             return View();

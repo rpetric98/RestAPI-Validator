@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -15,8 +16,6 @@ builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnC
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
     Environment.GetEnvironmentVariable("DefaultConnection");
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
 
 // Configure the database context
 builder.Services.AddDbContext<FlightsDbContext>(options =>
@@ -78,7 +77,7 @@ builder.Services.AddAuthentication(options =>
  });
 
 //Services
-
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddSoapCore();
 builder.Services.AddScoped<IFlightService, FlightService>();
@@ -92,7 +91,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
-app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();

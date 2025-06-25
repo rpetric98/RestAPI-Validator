@@ -12,8 +12,8 @@ using RestAPI.Models;
 namespace RestAPI.Migrations
 {
     [DbContext(typeof(FlightsDbContext))]
-    [Migration("20250603205806_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250625130440_AddKeyToFlightDetails")]
+    partial class AddKeyToFlightDetails
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace RestAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RestAPI.Models.FlightInfo", b =>
+            modelBuilder.Entity("RestAPI.Models.FlightDetails", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,26 +33,61 @@ namespace RestAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Arrival")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Adults")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("Departure")
+                    b.Property<string>("CabinClass")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Locale")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Market")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FlightDetails");
+                });
+
+            modelBuilder.Entity("RestAPI.Models.Leg", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Destination")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("FlightDetailsId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Origin")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("Flights");
+                    b.HasIndex("FlightDetailsId");
+
+                    b.ToTable("Legs");
                 });
 
             modelBuilder.Entity("RestAPI.Models.User", b =>
@@ -76,6 +111,22 @@ namespace RestAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("RestAPI.Models.Leg", b =>
+                {
+                    b.HasOne("RestAPI.Models.FlightDetails", "FlightDetails")
+                        .WithMany("Legs")
+                        .HasForeignKey("FlightDetailsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FlightDetails");
+                });
+
+            modelBuilder.Entity("RestAPI.Models.FlightDetails", b =>
+                {
+                    b.Navigation("Legs");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,8 +4,8 @@ namespace RestAPI.Services.Interfaces
 {
     public interface IWeatherService
     {
-        [XmlRpcMethod("GetTemprature")]
+        [XmlRpcMethod("GetTemperature")]
         double getTemperature(string city);
-        List<string> GetCities();
+        Task<List<string>> GetCitiesAsync();
     }
 }

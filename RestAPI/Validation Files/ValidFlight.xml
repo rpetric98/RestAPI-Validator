@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FlightDetails>
+  <Legs>
+    <Leg>
+      <Origin>JFK</Origin>
+      <Destination>LAX</Destination>
+      <Date>2025-06-25T10:00:00</Date>
+    </Leg>
+  </Legs>
+  <Adults>2</Adults>
+  <Currency>USD</Currency>
+  <Locale>en-US</Locale>
+  <Market>US</Market>
+  <CabinClass>Economy</CabinClass>
+  <CountryCode>US</CountryCode>
+</FlightDetails>

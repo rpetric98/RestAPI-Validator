@@ -1,6 +1,4 @@
-﻿@model List<string>
-
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -18,7 +16,7 @@
         if (sessionStorage.getItem('AccessToken') == null) {
             window.location.href = '/Auth/Login';
         } else {
-            window.location.href = '/Home/Flights';
+            window.location.href = '/Flight/Index';
         }
     </script>
 }

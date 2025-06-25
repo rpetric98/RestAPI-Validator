@@ -1,60 +1,44 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<element name="flight" xmlns="http://relaxng.org/ns/structure/1.0">
-  <element name="id">
-    <text/>
-  </element>
-  <element name="origin">
-    <element name="id">
-      <text/>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema-datatypes"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <start>
+    <element name="FlightDetails">
+      <element name="Legs">
+        <oneOrMore>
+          <element name="Leg">
+            <element name="Origin">
+              <text/>
+            </element>
+            <element name="Destination">
+              <text/>
+            </element>
+            <element name="Date">
+              <data type="dateTime"/>
+            </element>
+          </element>
+        </oneOrMore>
+      </element>
+
+      <element name="Adults">
+        <data type="int"/>
+      </element>
+      <element name="Currency">
+        <text/>
+      </element>
+      <element name="Locale">
+        <text/>
+      </element>
+      <element name="Market">
+        <text/>
+      </element>
+      <element name="CabinClass">
+        <text/>
+      </element>
+      <element name="CountryCode">
+        <text/>
+      </element>
     </element>
-    <element name="name">
-      <text/>
-    </element>
-    <element name="displayCode">
-      <text/>
-    </element>
-    <element name="city">
-      <text/>
-    </element>
-  </element>
-  <element name="destination">
-    <element name="id">
-      <text/>
-    </element>
-    <element name="name">
-      <text/>
-    </element>
-    <element name="displayCode">
-      <text/>
-    </element>
-    <element name="city">
-      <text/>
-    </element>
-  </element>
-  <element name="flightNumber">
-    <text/>
-  </element>
-  <element name="departure">
-    <text/>
-  </element>
-  <element name="arrival">
-    <text/>
-  </element>
-  <element name="duration">
-    <data type="integer"/>
-  </element>
-  <element name="price">
-    <data type="decimal"/>
-  </element>
-  <element name="carrier">
-    <element name="name">
-      <text/>
-    </element>
-    <element name="displayCode">
-      <text/>
-    </element>
-    <element name="logo">
-      <text/>
-    </element>
-  </element>
-</element>
+  </start>
+</grammar>

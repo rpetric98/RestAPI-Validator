@@ -4,9 +4,8 @@ using RestAPI.Services.Interfaces;
 
 namespace RestAPI.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
-    public class WeatherController : ControllerBase
+    public class WeatherController : Controller
     {
         private readonly IWeatherService _weatherService;
 
@@ -14,38 +13,28 @@ namespace RestAPI.Controllers
         {
             _weatherService = weatherService;
         }
-
-        [Authorize]
-        [HttpGet]
-        [Route("getCities")]
-        public IActionResult GetCities()
+        [HttpGet("")]
+        public async Task<IActionResult> Index()
         {
-            try
-            {
-                var cities = _weatherService.GetCities();
-                return Ok(cities);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var cities = await _weatherService.GetCitiesAsync();
+            return View(cities);
         }
 
-        [Authorize]
-        [HttpPost]
-        [Route("XML-RPC")]
-        public IActionResult XmlRpc([FromBody] string city)
+        [HttpGet("GetTemperature")]
+        public IActionResult GetTemperature(string city)
         {
-            try
-            {
-                var temperature = _weatherService.getTemperature(city);
-                var response = $"<?xml version=\"1.0\"?><methodResponse><params><param><value><double>{temperature}</double></value></param></params></methodResponse>";
-                return Content(response, "text/xml");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            if (string.IsNullOrWhiteSpace(city))
+                return Json(new { error = "City parameter is required." });
+
+            var temperature = _weatherService.getTemperature(city);
+
+            if (double.IsNaN(temperature))
+                return Json(new { error = "City not found or temperature data is missing." });
+
+            return Json(new { temperature });
         }
+
+
     }
 }
+
