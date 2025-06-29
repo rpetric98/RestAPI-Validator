@@ -1,0 +1,62 @@
+﻿@model RestAPI.Models.FlightDetails
+
+@{
+    ViewData["Title"] = "Flight Details";
+}
+
+<h2>Flight Details</h2>
+
+<div>
+    <h4>Flight ID: @Model.Id</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Adults</dt>
+        <dd class="col-sm-10">@Model.Adults</dd>
+
+        <dt class="col-sm-2">Currency</dt>
+        <dd class="col-sm-10">@Model.Currency</dd>
+
+        <dt class="col-sm-2">Locale</dt>
+        <dd class="col-sm-10">@Model.Locale</dd>
+
+        <dt class="col-sm-2">Market</dt>
+        <dd class="col-sm-10">@Model.Market</dd>
+
+        <dt class="col-sm-2">Cabin Class</dt>
+        <dd class="col-sm-10">@Model.CabinClass</dd>
+
+        <dt class="col-sm-2">Country Code</dt>
+        <dd class="col-sm-10">@Model.CountryCode</dd>
+    </dl>
+
+    <h5>Legs</h5>
+    @if (Model.Legs?.Any() == true)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var leg in Model.Legs)
+                {
+                    <tr>
+                        <td>@leg.Origin</td>
+                        <td>@leg.Destination</td>
+                        <td>@leg.Date.ToShortDateString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No legs added.</p>
+    }
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

@@ -14,5 +14,8 @@ namespace RestAPI.Models
         [Required(ErrorMessage = "Password is required.")]
         [StringLength(100, ErrorMessage = "Password cannot be longer than 100 characters.")]
         public string PasswordHash { get; set; } = string.Empty;
+
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiryTime { get; set; }
     }
 }

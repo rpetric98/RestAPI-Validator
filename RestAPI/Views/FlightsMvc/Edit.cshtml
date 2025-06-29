@@ -1,0 +1,56 @@
+﻿@model RestAPI.Models.FlightDetails
+
+@{
+    ViewData["Title"] = "Edit Flight";
+}
+
+<h2>Edit Flight</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Adults" class="control-label"></label>
+        <input asp-for="Adults" class="form-control" />
+        <span asp-validation-for="Adults" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Currency" class="control-label"></label>
+        <input asp-for="Currency" class="form-control" />
+        <span asp-validation-for="Currency" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Locale" class="control-label"></label>
+        <input asp-for="Locale" class="form-control" />
+        <span asp-validation-for="Locale" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Market" class="control-label"></label>
+        <input asp-for="Market" class="form-control" />
+        <span asp-validation-for="Market" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CabinClass" class="control-label"></label>
+        <input asp-for="CabinClass" class="form-control" />
+        <span asp-validation-for="CabinClass" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="CountryCode" class="control-label"></label>
+        <input asp-for="CountryCode" class="form-control" />
+        <span asp-validation-for="CountryCode" class="text-danger"></span>
+    </div>
+
+    <input type="submit" value="Save" class="btn btn-primary" />
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

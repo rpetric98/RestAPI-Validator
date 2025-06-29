@@ -9,7 +9,7 @@ namespace RestAPI.Models
         {
             [Key]
             [XmlIgnore]    
-            public int Id { get; set; } // EF Core primary key
+            public int Id { get; set; }
 
             [XmlArray("Legs")]
             [XmlArrayItem("Leg")]
@@ -38,7 +38,7 @@ namespace RestAPI.Models
         {
             [Key]
             [XmlIgnore]
-            public int Id { get; set; } // EF Core primary key
+            public int Id { get; set; }
 
             [Required]
             public string Origin { get; set; } = string.Empty;
@@ -49,7 +49,6 @@ namespace RestAPI.Models
             [Required]
             public DateTime Date { get; set; }
 
-        // Foreign key to FlightDetails if needed
              [XmlIgnore]
             public int FlightDetailsId { get; set; }
              [XmlIgnore]    

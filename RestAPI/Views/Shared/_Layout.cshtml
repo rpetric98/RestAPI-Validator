@@ -25,6 +25,9 @@
                         <li class="nav-item" id="weatherNav">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Weather" asp-action="Index">Weather</a>
                         </li>
+                        <li class="nav-item" id="flightsApiNav">
+                            <a class="nav-link text-dark" asp-controller="FlightsMvc" asp-action="Index">FlightsCRUD</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav flex-grow-1 justify-content-end">
                         <li class="nav-item">
@@ -67,12 +70,15 @@
                 logoutButton.style.display = "block";
                 document.getElementById("flightsNav").style.display = "block";
                 document.getElementById("weatherNav").style.display = "block";
+                document.getElementById("flightsApiNav").style.display = "block";
             } else {
                 document.getElementById("loginBtn").style.display = "block";
                 document.getElementById("registerBtn").style.display = "block";
                 document.getElementById("logoutBtn").style.display = "none";
                 document.getElementById("flightsNav").style.display = "none";
                 document.getElementById("weatherNav").style.display = "none";
+                document.getElementById("flightsApiNav").style.display = "none";
+
             }
         }
 

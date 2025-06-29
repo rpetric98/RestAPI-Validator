@@ -1,0 +1,41 @@
+﻿@model IEnumerable<FlightDetails>
+
+@{
+    ViewData["Title"] = "All Flights";
+}
+
+<h2>All Flights</h2>
+
+<a class="btn btn-success" asp-action="Create">Create New Flight</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Adults</th>
+            <th>Currency</th>
+            <th>Locale</th>
+            <th>Market</th>
+            <th>Cabin Class</th>
+            <th>Country Code</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var flight in Model)
+        {
+            <tr>
+                <td>@flight.Adults</td>
+                <td>@flight.Currency</td>
+                <td>@flight.Locale</td>
+                <td>@flight.Market</td>
+                <td>@flight.CabinClass</td>
+                <td>@flight.CountryCode</td>
+                <td>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@flight.Id">Details</a>
+                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@flight.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@flight.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

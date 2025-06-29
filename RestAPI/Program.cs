@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -74,6 +75,10 @@ builder.Services.AddAuthentication(options =>
          IssuerSigningKey = new SymmetricSecurityKey(
                             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
      };
+ }).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+ {
+     options.LoginPath = "/Auth/Login";
+     options.AccessDeniedPath = "/Auth/AccessDenied";
  });
 
 //Services
